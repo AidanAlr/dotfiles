@@ -94,7 +94,7 @@ alias zshconfig="nvim $ZSHCONFIG"
 # aliases
 alias vim='nvim'
 alias c='clear'
-
+alias charm='open -na "PyCharm.app"'
 # docker
 alias docker_sa='docker stop $(docker ps -q)'
 
