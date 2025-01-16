@@ -83,7 +83,7 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias l.='ls -dl .*'
-alias fzf='fzf --preview="batcat --color=always {}"'
+alias fzf='fzf --preview="bat --color=always {} | head -500"'
 alias python="python3"
 alias py="python"
 alias dev="./scripts/dev.sh"
@@ -103,8 +103,8 @@ cd() {
     fi
 }
 
-# Shell integrations
-eval "$(fzf --zsh)"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
 
 # macOS specific configurations
