@@ -73,19 +73,47 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Theme configuration
 ZSH_THEME="robbyrussell"
 
-# Common aliases
+# Set to superior editing mode
+set -o vi
+export VISUAL=nvim
+export EDITOR=nvim
+export TERM="tmux-256color"
+
+# Directories
+export CODE="$HOME/code/"
+export DOT="$HOME/dotfiles/"
+export PRISM="$CODE/prism/"
+export ZSHCONFIG="$HOME/.zshrc"
+
+# Aliases for cd to Directories
+alias code="cd $CODE"
+alias dot="cd $DOT"
+alias prism="cd $PRISM"
+alias zshconfig="nvim $ZSHCONFIG"
+
+# aliases
 alias vim='nvim'
 alias c='clear'
+
+# docker
 alias docker_sa='docker stop $(docker ps -q)'
+
+# ls
 alias ls='lsd'
-alias l='ls -l'
+alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias l.='ls -dl .*'
+
+#fzf
 alias fzf='fzf --preview="bat --color=always {} | head -500"'
+
+# python
 alias python="python3"
 alias py="python"
+
+# prism scripts
 alias dev="./scripts/dev.sh"
 alias devd="./scripts/devd.sh"
 
@@ -93,15 +121,6 @@ alias devd="./scripts/devd.sh"
 alias icat="kitten icat"
 alias s="kitten ssh"
 alias d="kitten diff"
-
-# Custom cd function
-cd() {
-    builtin cd "$@"
-    if [ $? -eq 0 ]; then
-        clear
-        ll
-    fi
-}
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
@@ -116,3 +135,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
     fi
 fi
+
+# Custom cd function
+cd() {
+    builtin cd "$@"
+    if [ $? -eq 0 ]; then
+        clear
+        ll
+    fi
+}
+
