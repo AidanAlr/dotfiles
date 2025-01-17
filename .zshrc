@@ -94,7 +94,7 @@ alias backend="cd $BACKEND"
 
 # prism scripts
 alias dev="backend && ./scripts/dev.sh"
-alias devd="bakcend && ./scripts/devd.sh"
+alias devd="backend && ./scripts/devd.sh"
 alias devre="devd && dev"
 alias cov="backend && ./scripts/code_coverage.sh"
 
