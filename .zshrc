@@ -24,7 +24,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
+# zinit light Aloxaf/fzf-tab
 
 # Add in snippets
 zinit snippet OMZL::git.zsh
@@ -41,7 +41,7 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
+# source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -74,7 +74,6 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 ZSH_THEME="robbyrussell"
 
 # Set to superior editing mode
-set -o vi
 export VISUAL=nvim
 export EDITOR=nvim
 export TERM="tmux-256color"
@@ -84,12 +83,24 @@ export CODE="$HOME/code/"
 export DOT="$HOME/dotfiles/"
 export PRISM="$CODE/prism/"
 export ZSHCONFIG="$HOME/.zshrc"
+export BACKEND="$PRISM/backend/"
 
 # Aliases for cd to Directories
 alias code="cd $CODE"
 alias dot="cd $DOT"
 alias prism="cd $PRISM"
 alias zshconfig="nvim $ZSHCONFIG"
+alias backend="cd $BACKEND"
+
+# prism scripts
+alias dev="backend && ./scripts/dev.sh"
+alias devd="bakcend && ./scripts/devd.sh"
+alias devre="devd && dev"
+alias cov="backend && ./scripts/code_coverage.sh"
+
+#Alias for sourcing zshrc
+alias szsh="source $HOME/.zshrc"
+
 
 # aliases
 alias vim='nvim'
@@ -113,9 +124,7 @@ alias fzf='fzf --preview="bat --color=always {} | head -500"'
 alias python="python3"
 alias py="python"
 
-# prism scripts
-alias dev="./scripts/dev.sh"
-alias devd="./scripts/devd.sh"
+
 
 # Kitty terminal aliases
 alias icat="kitten icat"
