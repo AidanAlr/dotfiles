@@ -82,15 +82,23 @@ export TERM="tmux-256color"
 export CODE="$HOME/code/"
 export DOT="$HOME/dotfiles/"
 export PRISM="$CODE/prism/"
-export ZSHCONFIG="$HOME/.zshrc"
+export ZSHRC="$HOME/.zshrc"
 export BACKEND="$PRISM/backend/"
 
+# aliases
 # Aliases for cd to Directories
 alias code="cd $CODE"
 alias dot="cd $DOT"
 alias prism="cd $PRISM"
-alias zshconfig="nvim $ZSHCONFIG"
+alias zshrcw="nvim $ZSHRC"
 alias backend="cd $BACKEND"
+
+#Alias for sourcing zshrc
+alias zshrcs="source $HOME/.zshrc"
+
+# Alias gor connecting and disconnecting bluetooth WFXM3
+alias bluetooth="blueutil -p 1 && blueutil --connect 94-db-56-c1-9a-78"
+alias bluetoothoff="blueutil --disconnect 94-db-56-c1-9a-78"
 
 # prism scripts
 alias dev="backend && ./scripts/dev.sh"
@@ -99,11 +107,6 @@ alias devre="devd && dev"
 alias cov="backend && ./scripts/code_coverage.sh"
 alias test="backend && ./scripts/run_tests.sh"
 
-#Alias for sourcing zshrc
-alias szsh="source $HOME/.zshrc"
-
-
-# aliases
 alias vim='nvim'
 alias c='clear'
 alias charm='open -na "PyCharm.app"'
