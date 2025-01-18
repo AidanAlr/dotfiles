@@ -97,6 +97,7 @@ alias dev="backend && ./scripts/dev.sh"
 alias devd="backend && ./scripts/devd.sh"
 alias devre="devd && dev"
 alias cov="backend && ./scripts/code_coverage.sh"
+alias test="backend && ./scripts/run_tests.sh"
 
 #Alias for sourcing zshrc
 alias szsh="source $HOME/.zshrc"
