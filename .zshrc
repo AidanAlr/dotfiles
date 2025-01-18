@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -128,8 +121,6 @@ alias fzf='fzf --preview="bat --color=always {} | head -500"'
 alias python="python3"
 alias py="python"
 
-
-
 # Kitty terminal aliases
 alias icat="kitten icat"
 alias s="kitten ssh"
@@ -146,15 +137,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+unalias cd 2>/dev/null
 # Custom cd function
 cd() {
-    builtin cd "$@"
-    if [ $? -eq 0 ]; then
+    builtin cd "$@" && {
         clear
-        ll
-    fi
+        ls -l
+    }
 }
-
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-eval "$(zoxide init --cmd cd zsh)"
