@@ -126,17 +126,6 @@ alias icat="kitten icat"
 alias s="kitten ssh"
 alias d="kitten diff"
 
-
-# macOS specific configurations
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Homebrew configuration
-    if [[ -f "/opt/homebrew/bin/brew" ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-        # Homebrew Python configuration
-        export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
-    fi
-fi
-
 unalias cd 2>/dev/null
 # Custom cd function
 cd() {
@@ -145,3 +134,57 @@ cd() {
         ls -l
     }
 }
+# macOS specific configurations
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Check if Homebrew is installed
+    if ! command -v brew &> /dev/null; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    if [[ -f "/opt/homebrew/bin/brew" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        # Homebrew Python configuration
+        export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+        
+        # Install required packages if they don't exist
+        packages=(fzf git neovim)
+        for package in "${packages[@]}"; do
+            if ! brew list $package &> /dev/null; then
+                echo "Installing $package..."
+                brew install $package
+            fi
+        done
+    fi
+
+# Linux specific configurations
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Check if apt is available
+    if command -v apt &> /dev/null; then
+        # Update package list if it hasn't been updated in the last 24 hours
+        if [ ! -f /var/cache/apt/pkgcache.bin ] || [ $(find /var/cache/apt/pkgcache.bin -mtime +1) ]; then
+            echo "Updating package list..."
+            sudo apt update
+        fi
+        
+        # Install required packages if they don't exist
+        packages=(fzf git neovim)
+        for package in "${packages[@]}"; do
+            if ! dpkg -l | grep -q "^ii  $package"; then
+                echo "Installing $package..."
+                sudo apt install -y $package
+            fi
+        done
+    fi
+fi
+
+# Configure fzf if installed
+if command -v fzf &> /dev/null; then
+    # Source fzf completion and key bindings
+    if [[ -f ~/.fzf.zsh ]]; then
+        source ~/.fzf.zsh
+    elif [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
+        source /usr/share/doc/fzf/examples/completion.zsh
+        source /usr/share/doc/fzf/examples/key-bindings.zsh
+    fi
+fi
