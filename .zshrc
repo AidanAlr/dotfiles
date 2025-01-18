@@ -135,9 +135,6 @@ alias icat="kitten icat"
 alias s="kitten ssh"
 alias d="kitten diff"
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-eval "$(zoxide init --cmd cd zsh)"
 
 # macOS specific configurations
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -158,3 +155,6 @@ cd() {
     fi
 }
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+eval "$(zoxide init --cmd cd zsh)"
